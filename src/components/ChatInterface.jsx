@@ -34,6 +34,20 @@ const ChatInterface = ({ activeBranchId }) => {
   const currentModel = getActiveModel();
   const currentProvider = getActiveProvider();
   
+  // Get provider display name for the placeholder
+  const getProviderDisplayName = () => {
+    // Capitalize the first letter and handle special cases
+    if (!currentProvider) return 'LLM';
+    
+    const providerNames = {
+      'ollama': 'Ollama',
+      'anthropic': 'Claude',
+      'openai': 'OpenAI'
+    };
+    
+    return providerNames[currentProvider] || currentProvider.charAt(0).toUpperCase() + currentProvider.slice(1);
+  };
+  
   // Auto-resize textarea when input changes
   useEffect(() => {
     if (textareaRef.current) {
@@ -244,7 +258,7 @@ const ChatInterface = ({ activeBranchId }) => {
             ref={textareaRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Reply to Claude..."
+            placeholder={`Reply to ${getProviderDisplayName()}...`}
             className="message-input"
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
