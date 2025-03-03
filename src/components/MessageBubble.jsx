@@ -1,5 +1,9 @@
-// components/MessageBubble.jsx
+// components/MessageBubble.jsx with fixed imports
 import React, { useEffect, useRef } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import remarkGfm from 'remark-gfm';
 
 const MessageBubble = ({ message, isStreaming = false }) => {
   const { role, content, error } = message;
@@ -14,37 +18,36 @@ const MessageBubble = ({ message, isStreaming = false }) => {
     }
   }, [isStreaming]);
   
-  const formatContent = (text) => {
-    // Simple markdown-like processing for code blocks
-    return text.split('```').map((block, index) => {
-      if (index % 2 === 1) {
-        // This is a code block
-        return (
-          <pre key={index} className="code-block">
-            <code>{block}</code>
-          </pre>
-        );
-      } else {
-        // Convert newlines to <br> tags for regular text
-        return (
-          <span key={index} className="text-content">
-            {block.split('\n').map((line, i) => (
-              <React.Fragment key={i}>
-                {line}
-                {i < block.split('\n').length - 1 && <br />}
-              </React.Fragment>
-            ))}
-          </span>
-        );
-      }
-    });
-  };
-  
   return (
     <div className={`message ${role} ${error ? 'error' : ''} ${isStreaming ? 'is-streaming' : ''}`}>
-      {/* Removed the avatar div that contained the emoji */}
       <div className="content" ref={contentRef}>
-        {formatContent(content)}
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={{
+            code({ node, inline, className, children, ...props }) {
+              const match = /language-(\w+)/.exec(className || '');
+              return !inline && match ? (
+                <SyntaxHighlighter
+                  style={tomorrow}
+                  language={match[1]}
+                  PreTag="div"
+                  className="code-block"
+                  {...props}
+                >
+                  {String(children).replace(/\n$/, '')}
+                </SyntaxHighlighter>
+              ) : (
+                <code className={className} {...props}>
+                  {children}
+                </code>
+              );
+            },
+            // Keep line breaks for normal paragraphs
+            p: ({ children }) => <p className="markdown-paragraph">{children}</p>
+          }}
+        >
+          {content}
+        </ReactMarkdown>
         {isStreaming && <span className="streaming-cursor"></span>}
       </div>
     </div>

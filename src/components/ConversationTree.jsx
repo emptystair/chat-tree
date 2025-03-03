@@ -163,7 +163,7 @@ const ConversationTree = ({ onSelectBranch, activeBranchId }) => {
   return (
     <div className="conversation-tree">
       <div className="tree-header">
-        <h3>Conversation Tree</h3>
+        <h3>Convo Tree</h3>
         <button 
           className="new-conversation-button"
           onClick={handleCreateNewConversation}

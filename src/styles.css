@@ -728,11 +728,11 @@ select#provider-select:focus {
 }
 
 .tree-header {
-  padding: 1.25rem;
+  padding: 0.75rem 1rem;
   background-color: transparent;
   border-radius: 0;
   margin-bottom: 1px;
-  border-bottom: none;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -741,9 +741,9 @@ select#provider-select:focus {
 }
 
 .tree-header h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Bricolage Grotesque', sans-serif;
   color: var(--text-color);
 }
 
@@ -1328,4 +1328,350 @@ body {
   flex: 1;
   overflow-y: auto;
   padding: 1rem;
+}
+
+/* Fix for the input field height */
+
+/* Adjust input field to single line height */
+.message-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  resize: none; /* Prevent manual resizing */
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: #fff;
+  height: 46px; /* Fixed height for one line */
+  min-height: 46px;
+  max-height: 46px; /* Force single line height */
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  transition: border-color 0.2s, box-shadow 0.2s;
+  margin: 0;
+  box-sizing: border-box;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow-x: auto; /* Allow horizontal scrolling */
+}
+
+/* Ensure the input container respects the input field height */
+.input-container {
+  display: flex;
+  padding: 0.75rem 1rem;
+  gap: 0.75rem;
+  align-items: center;
+  flex-shrink: 0;
+  overflow: visible;
+  margin: 0;
+  height: auto;
+}
+
+/* Match the send button height exactly */
+.send-button {
+  height: 46px;
+  margin: 0;
+  align-self: center;
+  box-sizing: border-box;
+}
+
+/* Ensure input section height is minimal */
+.input-section {
+  flex-shrink: 0;
+  padding: 0;
+  margin: 0;
+  height: auto;
+}
+
+/* Remove Grammarly from input field */
+
+/* Hide all Grammarly elements */
+.message-input .grammarly-desktop-integration,
+.message-input div[data-grammarly-part="highlights"],
+.message-input div[data-grammarly-part="button"],
+div[data-grammarly-part],
+div[data-grammarly-shadow-root],
+grammarly-extension,
+.grammarly-btn,
+#grammarly-extension {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  position: absolute !important;
+  pointer-events: none !important;
+}
+
+/* Prevent Grammarly from altering the input field behavior */
+.message-input {
+  /* Disable Grammarly in the input field */
+  data-gramm: "false";
+  data-gramm_editor: "false";
+  data-enable-grammarly: "false";
+}
+
+/* Add attribute to disable Grammarly */
+.message-input[data-enable-grammarly="false"] {
+  background: white !important; /* Override any Grammarly background */
+}
+
+/* Remove any other Grammarly-injected styles */
+.gr-textarea-btn,
+.grammarly-ghost-text,
+.grammarly-correction-overlay,
+.grammarly-popups,
+.grammarly-overflow-scroll-fix {
+  display: none !important;
+}
+
+/* Fix for the model dropdown positioning - extending upward */
+.model-dropdown-list {
+  position: absolute;
+  bottom: 100%;  /* Position at the bottom of the button */
+  left: 0;
+  margin-bottom: 0.5rem;  /* Add space between button and dropdown */
+  min-width: 180px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  list-style: none;
+  padding: 0.5rem 0;
+  z-index: 200; /* High z-index to ensure visibility */
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+/* Improve the model controls positioning */
+.model-controls-bottom {
+  display: flex;
+  padding: 0.5rem 1rem 0.75rem 1rem; 
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  overflow: visible;
+  position: relative;
+  z-index: 100; /* Ensure it's above other elements */
+}
+
+/* Ensure the dropdown wrapper has the right positioning context */
+.dropdown-wrapper {
+  position: relative;
+  z-index: 101; /* Higher than parent */
+}
+
+/* Fix input section to allow the dropdown to be visible */
+.input-section {
+  border-top: 1px solid var(--border-color);
+  background-color: #fff;
+  flex-shrink: 0;
+  overflow: visible; /* Allow dropdowns to extend outside */
+  padding: 0;
+  margin: 0;
+  margin-top: auto;
+  position: relative;
+}
+
+/* Support for dark mode */
+@media (prefers-color-scheme: dark) {
+  .model-dropdown-list {
+    background-color: #333;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Ensure messages container doesn't overlap with the upward dropdown */
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem;
+  background-image: linear-gradient(180deg, 
+                    rgba(255, 255, 255, 0.2) 0%, 
+                    rgba(255, 255, 255, 0) 100%);
+  position: relative;
+  z-index: 10; /* Lower than the dropdown */
+}
+
+/* Basic markdown element styling */
+.message .content {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  position: relative;
+  word-break: break-word;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Headings */
+.message .content h1,
+.message .content h2,
+.message .content h3,
+.message .content h4,
+.message .content h5,
+.message .content h6 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.message .content h1 {
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.3rem;
+}
+
+.message .content h2 {
+  font-size: 1.3rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.3rem;
+}
+
+.message .content h3 {
+  font-size: 1.1rem;
+}
+
+.message .content h4 {
+  font-size: 1rem;
+}
+
+/* Paragraphs */
+.message .content p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.markdown-paragraph {
+  white-space: pre-line; /* Preserve line breaks */
+}
+
+/* Links */
+.message .content a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.message .content a:hover {
+  text-decoration: underline;
+}
+
+/* Lists */
+.message .content ul,
+.message .content ol {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+}
+
+.message .content li {
+  margin-bottom: 0.25rem;
+}
+
+.message .content li p {
+  margin-bottom: 0.5rem;
+}
+
+/* Blockquotes */
+.message .content blockquote {
+  margin: 0 0 1rem;
+  padding: 0 1rem;
+  color: #6a737d;
+  border-left: 0.25rem solid #dfe2e5;
+}
+
+/* Code blocks */
+.message .content pre {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  border-radius: 3px;
+}
+
+.message .content code {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(27, 31, 35, 0.05);
+  border-radius: 3px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+.message .content pre code {
+  padding: 0;
+  background-color: transparent;
+}
+
+/* Tables */
+.message .content table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+  overflow-x: auto;
+  display: block;
+  width: 100%;
+}
+
+.message .content table th,
+.message .content table td {
+  border: 1px solid #dfe2e5;
+  padding: 0.5rem 1rem;
+  text-align: left;
+}
+
+.message .content table th {
+  background-color: #f6f8fa;
+  font-weight: 600;
+}
+
+.message .content table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+/* Horizontal rule */
+.message .content hr {
+  height: 0.25em;
+  padding: 0;
+  margin: 24px 0;
+  background-color: #e1e4e8;
+  border: 0;
+}
+
+/* Fix for streaming */
+.message.is-streaming .content pre {
+  background-color: rgba(240, 240, 255, 0.2);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .message .content a {
+    color: #58a6ff;
+  }
+  
+  .message .content blockquote {
+    color: #8b949e;
+    border-left-color: #30363d;
+  }
+  
+  .message .content code {
+    background-color: rgba(240, 246, 252, 0.15);
+  }
+  
+  .message .content table th,
+  .message .content table td {
+    border-color: #30363d;
+  }
+  
+  .message .content table th {
+    background-color: #161b22;
+  }
+  
+  .message .content table tr:nth-child(2n) {
+    background-color: #161b22;
+  }
+  
+  .message .content hr {
+    background-color: #30363d;
+  }
 }
