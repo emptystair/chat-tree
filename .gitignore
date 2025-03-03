@@ -1,0 +1,29 @@
+# Node.js / npm
+node_modules/
+npm-debug.log
+yarn-error.log
+# Optionally, you can keep package-lock.json if you want consistent dependency versions
+
+# Build output
+build/
+dist/
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# OS-generated files
+.DS_Store  # macOS
+Thumbs.db  # Windows
+
+# Editor files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Sensitive files
+*.env
+*.key
+*.pem
+secrets.json

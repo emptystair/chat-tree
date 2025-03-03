@@ -1,0 +1,2157 @@
+/* Updated styles.css - jzhao.xyz inspired with Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* Add this to the top of your CSS file to import the Bricolage Grotesque font */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700&display=swap');
+
+:root {
+  /* Color scheme inspired by jzhao.xyz */
+  --background-color: #f5e8c7; /* Parchment-like off-white */
+  --chat-bg: #f8f3e6; /* Slightly lighter than the background */
+  --text-color: #333333; /* Dark gray for text */
+  --light-text: #666666; /* Lighter text for secondary elements */
+  --primary-color: #0077b6; /* Muted blue for interactive elements */
+  --secondary-color: #4a87a5; /* Slightly lighter blue */
+  --border-color: #e0d5b8; /* Subtle border color */
+  --user-message-bg: #e7edf2; /* Light blue for user messages */
+  --assistant-message-bg: #f5f0e5; /* Light cream for assistant messages */
+  --active-item: #efe5cf; /* Highlight for active elements */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.5;
+  font-weight: 400;
+  /* Natural light effect with gradient */
+  background-image: linear-gradient(135deg, 
+                    rgba(255, 255, 255, 0.3) 0%, 
+                    rgba(255, 255, 255, 0) 50%, 
+                    rgba(255, 255, 255, 0.1) 100%);
+  background-attachment: fixed;
+}
+
+/* Add subtle texture overlay to mimic paper */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5z' fill='%239C92AC' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: var(--chat-bg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Layout adjustments for the three-column style */
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* Prevents flex items from overflowing */
+  border-right: 1px solid var(--border-color);
+}
+
+.tree-container {
+  width: 320px;
+  overflow-y: auto;
+  background-color: var(--chat-bg);
+  border-left: 1px solid var(--border-color);
+  box-shadow: -1px 0 5px rgba(0, 0, 0, 0.03);
+}
+
+/* Typography - clean, bookish feel */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.5em;
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+/* Chat Interface Styles - more organic and literary */
+.chat-interface {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--chat-bg);
+}
+
+.chat-header {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--chat-bg);
+}
+
+.chat-header h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.model-controls {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+}
+
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  background-image: linear-gradient(180deg, 
+                    rgba(255, 255, 255, 0.2) 0%, 
+                    rgba(255, 255, 255, 0) 100%);
+}
+
+.empty-chat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: var(--light-text);
+  font-size: 1.1rem;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.input-container {
+  display: flex;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--chat-bg);
+}
+
+.message-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  resize: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.message-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0, 119, 182, 0.1);
+}
+
+.send-button {
+  margin-left: 0.75rem;
+  padding: 0 1.25rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.send-button:hover {
+  background-color: var(--secondary-color);
+}
+
+.send-button:active {
+  transform: translateY(1px);
+}
+
+.send-button:disabled {
+  background-color: var(--border-color);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Message Bubble Styles - more organic, literary feeling */
+.message {
+  display: flex;
+  margin-bottom: 1.5rem;
+  max-width: 85%;
+  transition: opacity 0.2s ease;
+}
+
+.message.user {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+
+.message.assistant,
+.message.system {
+  margin-right: auto;
+}
+
+.message .avatar {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 0.75rem;
+  font-size: 1.2rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.message .content {
+  padding: 0.9rem 1.2rem;
+  border-radius: 1rem;
+  position: relative;
+  word-break: break-word;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.message.user .content {
+  background-color: var(--user-message-bg);
+  border-top-right-radius: 4px;
+}
+
+.message.assistant .content,
+.message.system .content {
+  background-color: var(--assistant-message-bg);
+  border-top-left-radius: 4px;
+}
+
+.code-block {
+  background-color: rgba(245, 245, 245, 0.7);
+  padding: 0.9rem;
+  border-radius: 6px;
+  font-family: 'Courier New', Courier, monospace;
+  overflow-x: auto;
+  margin: 0.8rem 0;
+  font-size: 0.9rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.message.error .content {
+  background-color: #ffeded;
+  border: 1px solid #ffcccc;
+}
+
+/* Loading Indicator */
+.loading-indicator {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.25rem;
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  background-color: var(--assistant-message-bg);
+  border-radius: 1rem;
+  border-top-left-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.typing-indicator span {
+  height: 8px;
+  width: 8px;
+  background-color: var(--light-text);
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 3px;
+  opacity: 0.6;
+  animation: bounce 1.5s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Text Selection Toolbar styled to match aesthetics */
+.text-selection-toolbar {
+  position: absolute;
+  background-color: var(--primary-color);
+  border-radius: 6px;
+  padding: 0.4rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.expand-button {
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  border-radius: 4px;
+}
+
+.expand-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.close-button {
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 0 0.4rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-left: 0.3rem;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.close-button:hover {
+  opacity: 1;
+}
+
+/* Model & Provider Selector Styles */
+.model-selector,
+.provider-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.model-selector label,
+.provider-selector label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  min-width: 180px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 0.75rem) center;
+  padding-right: 2.5rem;
+}
+
+select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0, 119, 182, 0.1);
+}
+
+.model-message,
+.provider-message {
+  font-size: 0.75rem;
+  color: var(--light-text);
+  margin-top: 0.25rem;
+}
+
+/* API Key Manager Styles */
+.api-key-manager {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--chat-bg);
+  margin-bottom: 0.5rem;
+}
+
+.api-key-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.provider-name {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.api-key-saved {
+  color: #2a9d8f;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 500;
+}
+
+.api-key-missing {
+  color: #e76f51;
+  font-weight: 500;
+}
+
+.small-button {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.15rem 0.4rem;
+  font-size: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clear-key:hover {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.api-key-input-container {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 0.6rem;
+}
+
+.api-key-input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.api-key-input {
+  width: 100%;
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.api-key-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0, 119, 182, 0.1);
+  outline: none;
+}
+
+.visibility-toggle {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.visibility-toggle:hover {
+  opacity: 1;
+}
+
+.save-api-key-button {
+  padding: 0 0.75rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.save-api-key-button:hover {
+  background-color: var(--secondary-color);
+}
+
+.save-api-key-button:active {
+  transform: translateY(1px);
+}
+
+.save-api-key-button:disabled {
+  background-color: var(--border-color);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Conversation Tree Styles - modified for a more jzhao.xyz tree/graph style */
+.conversation-tree {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.tree-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tree-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.new-conversation-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.new-conversation-button:hover {
+  background-color: var(--secondary-color);
+}
+
+.new-conversation-button:active {
+  transform: translateY(1px);
+}
+
+.tree-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.75rem;
+  opacity: 0.95;
+}
+
+/* Redesigned tree structure to match jzhao.xyz graph aesthetics */
+.branch-node-container {
+  margin-bottom: 0.25rem;
+  transition: opacity 0.3s ease;
+}
+
+.branch-node {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.branch-node:hover {
+  background-color: var(--active-item);
+}
+
+.branch-node.active {
+  background-color: var(--active-item);
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.branch-node-content {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.toggle-expand {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 0 0.4rem 0 0;
+  color: var(--primary-color);
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.toggle-expand:hover {
+  opacity: 1;
+}
+
+.branch-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  font-size: 0.9rem;
+}
+
+.branch-actions {
+  display: none;
+  align-items: center;
+}
+
+.branch-node:hover .branch-actions {
+  display: flex;
+}
+
+.action-button {
+  background: none;
+  border: none;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0.15rem;
+  margin-left: 0.3rem;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.action-button:hover {
+  opacity: 1;
+}
+
+.rename-input {
+  width: 100%;
+  padding: 0.2rem 0.4rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Create visual tree connections similar to jzhao.xyz graph */
+.branch-children {
+  margin-left: 1rem;
+  position: relative;
+  padding-left: 0.75rem;
+}
+
+.branch-children::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background-color: var(--primary-color);
+  opacity: 0.2;
+}
+
+/* Add node circles to mimic graph view */
+.branch-node::before {
+  content: '';
+  position: absolute;
+  left: -0.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.branch-children .branch-node::before {
+  opacity: 0.4;
+}
+
+.branch-children .branch-node:hover::before,
+.branch-children .branch-node.active::before {
+  opacity: 0.7;
+}
+
+/* Custom model input styles */
+.custom-model-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.custom-model-field {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.custom-model-submit,
+.custom-model-cancel {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.custom-model-submit {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+  border-color: transparent;
+}
+
+.custom-model-submit:hover {
+  background-color: var(--secondary-color);
+}
+
+.custom-model-submit:disabled {
+  background-color: var(--border-color);
+  cursor: not-allowed;
+}
+
+.custom-model-cancel:hover {
+  background-color: #f8d7da;
+}
+
+.model-select-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Streaming cursor animation with improved style */
+.streaming-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: var(--primary-color);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 0.8s steps(2) infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Give streaming messages a subtle highlight */
+.message.is-streaming .content {
+  position: relative;
+  background-color: rgba(240, 240, 255, 0.2);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Subtle pulse animation for streaming messages */
+.message.is-streaming {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 119, 182, 0.1); }
+  70% { box-shadow: 0 0 0 6px rgba(0, 119, 182, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 119, 182, 0); }
+}
+
+/* Ensure streaming text wraps properly */
+.message.is-streaming .content .text-content {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* Smooth appearance of new content */
+.message.is-streaming .content {
+  transition: height 0.3s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+    height: 100vh;
+    border-radius: 0;
+  }
+  
+  .chat-container {
+    height: 70vh;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .tree-container {
+    width: 100%;
+    height: 30vh;
+    border-left: none;
+  }
+  
+  .model-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .message {
+    max-width: 90%;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #2c2c1e;
+    --chat-bg: #33332a;
+    --text-color: #e6e6d9;
+    --light-text: #b5b5a9;
+    --primary-color: #4a87a5;
+    --secondary-color: #6a9cb5;
+    --border-color: #44443a;
+    --user-message-bg: #3a4555;
+    --assistant-message-bg: #3c3c30;
+    --active-item: #45453a;
+  }
+  
+  body::before {
+    opacity: 0.03;
+  }
+  
+  .message .avatar {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  
+  select {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--text-color);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23e6e6d9' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  }
+  
+  .message-input, 
+  .api-key-input,
+  .rename-input,
+  .custom-model-field {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--text-color);
+  }
+  
+  .code-block {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .streaming-cursor {
+    background-color: var(--secondary-color);
+  }
+  
+  /* Adjust contrast for better readability in dark mode */
+  a {
+    color: #89cff0;
+  }
+  
+  a:hover {
+    color: #add8e6;
+  }
+  
+  .branch-children::before {
+    opacity: 0.3;
+  }
+  
+  .branch-children .branch-node::before {
+    opacity: 0.6;
+  }
+  
+  .branch-children .branch-node:hover::before,
+  .branch-children .branch-node.active::before {
+    opacity: 0.9;
+  }
+  
+  /* Adjust box shadows for dark mode */
+  .app-container {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .message .content {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Better highlight for active elements */
+  .branch-node.active,
+  .branch-node:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Update primary colors to navy */
+:root {
+  /* Changing blue to navy */
+  --primary-color: #2c3e50; /* Navy blue */
+  --secondary-color: #34495e; /* Slightly lighter navy */
+}
+
+/* Dropdown Menu Styling (like the Claude dropdown) */
+select,
+.provider-select,
+.model-select {
+  appearance: none;
+  background-color: #f8f5f2;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  color: #333;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  padding: 10px 14px;
+  padding-right: 32px;
+  transition: all 0.2s ease;
+  width: auto;
+  min-width: 180px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+select:hover,
+.provider-select:hover,
+.model-select:hover {
+  border-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+select:focus,
+.provider-select:focus,
+.model-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.1);
+  outline: none;
+}
+
+/* Style the dropdown options */
+select#model-select option,
+select#provider-select option {
+  padding: 8px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Selected option in the dropdown */
+select#model-select option:checked,
+select#provider-select option:checked {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Hover state for options */
+select#model-select option:hover,
+select#provider-select option:hover {
+  background-color: #f0f0f0;
+}
+
+/* Focus state for the select */
+select#model-select:focus,
+select#provider-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.1);
+}
+
+/* Buttons in navy */
+.send-button,
+.new-conversation-button,
+.save-api-key-button,
+.custom-model-submit,
+.text-selection-toolbar {
+  background-color: var(--primary-color);
+}
+
+.send-button:hover,
+.new-conversation-button:hover,
+.save-api-key-button:hover,
+.custom-model-submit:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Dark mode adjustments for navy */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #4a6583; /* Lighter navy for dark mode */
+    --secondary-color: #5d7b9e; /* Even lighter navy */
+  }
+
+  select,
+  .provider-select,
+  .model-select {
+    background-color: #292929;
+    color: #e0e0e0;
+    border-color: rgba(255, 255, 255, 0.1);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23e0e0e0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  }
+
+  .dropdown-menu {
+    background-color: #333;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+  }
+
+  .dropdown-item {
+    color: #e0e0e0;
+  }
+
+  .dropdown-item:hover {
+    background-color: #444;
+    color: #fff;
+  }
+
+  .dropdown-divider {
+    border-top-color: #444;
+  }
+}
+
+/* Custom Select Styling - add to your styles.css */
+
+/* Container for the custom select */
+.custom-select-container {
+  position: relative;
+  min-width: 200px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Button that opens the dropdown */
+.custom-select-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 12px;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.custom-select-button:hover {
+  border-color: rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.custom-select-button:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.1);
+}
+
+/* Arrow inside the button */
+.custom-select-arrow {
+  font-size: 0.7em;
+  transition: transform 0.3s ease;
+  margin-left: 8px;
+  color: #666;
+}
+
+.custom-select-container[aria-expanded="true"] .custom-select-arrow {
+  transform: rotate(180deg);
+}
+
+/* Dropdown menu */
+.custom-select-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: 4px;
+  padding: 4px 0;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  list-style: none;
+  max-height: 300px;
+  overflow-y: auto;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Dropdown options */
+.custom-select-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.custom-select-option:hover {
+  background-color: #f0f0f0;
+}
+
+.custom-select-option.selected {
+  background-color: #f8f9fa;
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+/* Checkmark for selected option */
+.checkmark {
+  color: var(--primary-color);
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .custom-select-button {
+    background-color: #292929;
+    color: #e0e0e0;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .custom-select-button:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .custom-select-dropdown {
+    background-color: #292929;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .custom-select-option {
+    color: #e0e0e0;
+  }
+  
+  .custom-select-option:hover {
+    background-color: #333;
+  }
+  
+  .custom-select-option.selected {
+    background-color: #333;
+  }
+  
+  .custom-select-arrow {
+    color: #aaa;
+  }
+}
+
+/* Additional CSS for the modifications */
+
+/* Adjust spacing for messages without avatars */
+.message {
+  display: flex;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.message .content {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+/* Style the stacked selectors */
+.chat-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.model-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.selectors-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.provider-selector, .model-selector {
+  margin-bottom: 0.5rem;
+}
+
+/* Make sure the custom-select-container has appropriate width */
+.custom-select-container {
+  width: 180px;
+}
+
+/* Chat Input Styling to match Claude's interface */
+
+.input-container {
+  display: flex;
+  padding: 1rem;
+  background-color: #fff;
+  border-top: 1px solid #e0e0e0;
+  position: relative;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.message-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  resize: none;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: #fff;
+  min-height: 46px;
+  max-height: 150px;
+  overflow-y: auto;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.message-input:focus {
+  outline: none;
+  border-color: #8a8a8a;
+  box-shadow: 0 0 0 2px rgba(138, 138, 138, 0.2);
+}
+
+.message-input::placeholder {
+  color: #999;
+}
+
+.send-button {
+  background-color: #f0f0f0;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  height: 46px;
+  transition: background-color 0.2s;
+}
+
+.send-button:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.send-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Make the input grow as text is entered */
+.message-input {
+  overflow-y: hidden;
+  transition: height 0.1s;
+}
+
+/* Add a paper clip icon style if you want to add file attachment functionality later */
+.attachment-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #666;
+}
+
+.attachment-icon:hover {
+  background-color: #f0f0f0;
+}
+
+/* Updated CSS for Chat Interface with selectors below input */
+
+/* Main input section styles */
+.input-section {
+  border-top: 1px solid #e0e0e0;
+  background-color: #fff;
+}
+
+/* Chat input styles */
+.input-container {
+  display: flex;
+  padding: 1rem;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.message-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  resize: none;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: #fff;
+  min-height: 46px;
+  max-height: 150px;
+  overflow-y: auto;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.message-input:focus {
+  outline: none;
+  border-color: #8a8a8a;
+  box-shadow: 0 0 0 2px rgba(138, 138, 138, 0.2);
+}
+
+.message-input::placeholder {
+  color: #999;
+}
+
+.send-button {
+  background-color: #f0f0f0;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  height: 46px;
+  transition: background-color 0.2s;
+}
+
+.send-button:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.send-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Model selection controls below chat input */
+.model-controls-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem 1rem 1rem;
+  border-top: 1px solid #f0f0f0;
+  font-size: 0.875rem;
+}
+
+.selectors-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Message bubbles adjusted for no avatar */
+.message {
+  display: flex;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.message .content {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.message.user .content {
+  background-color: #e6f7ff;
+}
+
+.message.assistant .content {
+  background-color: #f0f0f0;
+}
+
+/* Adjust selectors for horizontal layout */
+.provider-selector, .model-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.provider-selector label, .model-selector label {
+  margin-bottom: 0;
+  font-weight: 500;
+  color: #666;
+}
+
+.custom-select-container {
+  min-width: 160px;
+}
+
+.custom-select-button {
+  font-size: 0.875rem;
+  padding: 0.35rem 0.5rem;
+  height: auto;
+}
+
+/* Make chat container fill available space */
+.chat-interface {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+/* Final CSS for Claude-like Interface */
+
+/* Main layout */
+.chat-interface {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Header with provider selector */
+.chat-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.provider-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Messages container */
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.message {
+  display: flex;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.message .content {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+/* User message styling */
+.message.user .content {
+  background-color: #EBF4FA; /* Light blue background from screenshot */
+}
+
+/* Assistant message styling */
+.message.assistant .content {
+  background-color: #F7F7F5; /* Light beige/cream background from screenshot */
+}
+
+/* Input section */
+.input-section {
+  border-top: 1px solid #e0e0e0;
+  background-color: #fff;
+}
+
+.input-container {
+  display: flex;
+  padding: 1rem;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.message-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  resize: none;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: #fff;
+  min-height: 46px;
+  max-height: 150px;
+  overflow-y: auto;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.message-input:focus {
+  outline: none;
+  border-color: #8a8a8a;
+  box-shadow: 0 0 0 2px rgba(138, 138, 138, 0.2);
+}
+
+.message-input::placeholder {
+  color: #999;
+}
+
+.send-button {
+  background-color: #f0f0f0;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  height: 46px;
+  transition: background-color 0.2s;
+}
+
+.send-button:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.send-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Model selector styling (Claude-like) */
+.model-controls-bottom {
+  display: flex;
+  padding: 0.5rem 1rem 1rem 1rem;
+  font-size: 0.85rem;
+}
+
+.model-selector {
+  width: 100%;
+}
+
+.dropdown-wrapper {
+  position: relative;
+}
+
+.model-dropdown-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #666;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.model-dropdown-button:hover {
+  color: #333;
+}
+
+.dropdown-arrow {
+  font-size: 0.7rem;
+  margin-left: 0.25rem;
+}
+
+.model-dropdown-list {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 0.5rem;
+  min-width: 180px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  list-style: none;
+  padding: 0.5rem 0;
+  z-index: 10;
+}
+
+.model-option {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.model-option:hover {
+  background-color: #f5f5f5;
+}
+
+.model-option.selected {
+  font-weight: 500;
+}
+
+.checkmark {
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+}
+
+/* Provider selector styling */
+.provider-selector label {
+  margin-right: 0.5rem;
+  color: #666;
+}
+
+.custom-select-button {
+  background: none;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.custom-select-arrow {
+  font-size: 0.75rem;
+  margin-left: 0.25rem;
+}
+
+.custom-select-dropdown {
+  position: absolute;
+  z-index: 10;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  list-style: none;
+  margin-top: 0.25rem;
+  padding: 0.5rem 0;
+  min-width: 180px;
+}
+
+.custom-select-option {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.custom-select-option:hover {
+  background-color: #f5f5f5;
+}
+
+.custom-select-option.selected {
+  font-weight: 500;
+}
+
+/* API key manager styling */
+.api-key-manager {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.api-key-status {
+  color: #666;
+}
+
+.api-key-saved {
+  color: #28a745;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.small-button {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.api-key-missing {
+  color: #dc3545;
+}
+
+/* Adjust empty chat styling */
+.empty-chat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #666;
+}
+
+/* Loading indicator */
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  background: #aaa;
+  border-radius: 50%;
+  animation: typing 1s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Provider selector font styling update */
+
+/* Provider label and dropdown styling */
+.provider-selector label,
+.custom-select-button span,
+.custom-select-option {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: bold;
+  font-size: 1rem; /* Match Conversation Tree font size */
+}
+
+/* Provider section overall */
+.provider-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Make sure the dropdown inherits the same font */
+.custom-select-dropdown {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: bold;
+}
+
+/* Ensure font consistency in the selected provider */
+.custom-select-button {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: bold;
+}
+
+/* Update these styles in your styles.css file */
+
+/* Main app container - remove the background from this and make it transparent */
+.app-container {
+  display: flex;
+  height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: transparent; /* Changed from var(--chat-bg) to transparent */
+  box-shadow: none; /* Remove the shadow from the container */
+  border-radius: 0;
+  overflow: visible; /* Allow content to overflow */
+}
+
+/* Add styling for the chat panel to contain the beige background */
+.chat-panel {
+  flex: 1;
+  background-color: var(--chat-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  margin-right: 20px; /* Add space between chat and tree */
+}
+
+/* Style the sidebar panel to be transparent */
+.sidebar-panel {
+  width: 320px;
+  overflow-y: auto;
+  background-color: transparent;
+  border-left: none;
+  box-shadow: none;
+}
+
+/* Ensure the conversation tree is styled properly */
+.conversation-tree {
+  background-color: transparent;
+  height: 100%;
+}
+
+/* Style the tree header with its own background */
+.tree-header {
+  background-color: var(--chat-bg);
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 1px;
+}
+
+/* Style the tree content with its own background */
+.tree-content {
+  background-color: var(--chat-bg);
+  border-radius: 0 0 8px 8px;
+  padding: 0.75rem;
+}
+
+/* Optional: Add a subtle background to the whole page */
+body {
+  background-color: var(--background-color);
+  padding: 20px;
+}
+
+/* Ensure the chat interface fills its container */
+.chat-interface {
+  height: 100%;
+  border-radius: 8px;
+}
+
+/* Make the Conversation Tree transparent */
+
+/* Make the sidebar panel fully transparent */
+.sidebar-panel {
+  width: 320px;
+  overflow-y: auto;
+  background-color: transparent;
+  border-left: none;
+  box-shadow: none;
+}
+
+/* Make the conversation tree container transparent */
+.conversation-tree {
+  background-color: transparent;
+  height: 100%;
+}
+
+/* Make the tree header transparent but keep text visible */
+.tree-header {
+  background-color: transparent;
+  border-radius: 0;
+  margin-bottom: 1px;
+  border-bottom: none;
+}
+
+/* Make the tree content area transparent */
+.tree-content {
+  background-color: transparent;
+  border-radius: 0;
+}
+
+/* Style the tree title to be visible against transparent background */
+.tree-header h3 {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+/* Style the "New Conversation" button to stand out on transparent background */
+.new-conversation-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Make individual branch nodes have a slightly visible background when hovered/active */
+.branch-node {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  margin-bottom: 4px;
+}
+
+.branch-node:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.branch-node.active {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Ensure the connections between branches are visible */
+.branch-children::before {
+  background-color: var(--text-color);
+  opacity: 0.3;
+}
+
+/* Optional: Ensure the "New Conversation" items in the tree have proper contrast */
+.tree-content .branch-title {
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+/* Fix scrolling issues and make content fit to window */
+
+/* Make sure the app container takes full height of the window */
+.app-container {
+  display: flex;
+  height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+  overflow: hidden; /* Prevent outer container from scrolling */
+}
+
+/* Fix the chat panel to prevent double scrollbars */
+.chat-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent outer chat panel from scrolling */
+  margin-right: 20px;
+}
+
+/* Make sure chat interface takes full height and handles scrolling properly */
+.chat-interface {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden; /* Prevent scrolling at this level */
+}
+
+/* Make messages container the only scrollable element */
+.messages-container {
+  flex: 1;
+  overflow-y: auto; /* This is the only element that should scroll */
+  overflow-x: hidden;
+  padding: 1rem;
+}
+
+/* Keep chat header and input section fixed height */
+.chat-header {
+  flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+.input-section {
+  flex-shrink: 0; /* Prevent input from shrinking */
+}
+
+/* Ensure provider controls don't cause overflow */
+.provider-section {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Allow items to wrap if needed */
+  gap: 1rem;
+}
+
+/* Make sidebar panel fit to window height without scrollbar */
+.sidebar-panel {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent outer sidebar from scrolling */
+}
+
+/* Allow only the tree content to scroll, not the entire sidebar */
+.conversation-tree {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden; /* Prevent tree container from scrolling */
+}
+
+.tree-header {
+  flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+.tree-content {
+  flex: 1;
+  overflow-y: auto; /* This is the only element in the sidebar that should scroll */
+  overflow-x: hidden;
+}
+
+/* Fix for mobile view if needed */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+  
+  .chat-panel {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
+
+/* Reset scrolling behavior for all containers */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Main container - takes full viewport */
+.app-container {
+  display: flex;
+  height: 100vh; /* Use viewport height */
+  max-width: 1400px;
+  margin: 0 auto;
+  overflow: hidden !important; /* Force no overflow */
+  box-sizing: border-box;
+}
+
+/* Ensure chat panel only allows messages to scroll */
+.chat-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden !important; /* Force no overflow */
+  margin-right: 20px;
+  max-height: 100vh;
+}
+
+/* Chat interface should not scroll */
+.chat-interface {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden !important; /* Force no overflow */
+  max-height: 100vh;
+}
+
+/* Header should not resize */
+.chat-header {
+  flex-shrink: 0;
+  overflow: hidden !important;
+}
+
+/* Only messages should scroll */
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem;
+}
+
+/* Input section should not resize */
+.input-section {
+  flex-shrink: 0;
+  overflow: hidden !important;
+}
+
+/* Sidebar panel should fit without scrolling */
+.sidebar-panel {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden !important;
+  height: 100vh;
+}
+
+/* Conversation tree structure */
+.conversation-tree {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden !important;
+}
+
+.tree-header {
+  flex-shrink: 0;
+  overflow: hidden !important;
+}
+
+.tree-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Force any potential scroll-causing elements to behave */
+.provider-section,
+.model-controls-bottom,
+.input-container {
+  flex-shrink: 0;
+  overflow: visible !important;
+}
+
+/* Ensure the app doesn't exceed viewport bounds */
+body > #root, 
+body > #app, 
+body > div:first-child {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Remove any margins or paddings that might be causing overflow */
+.messages-container > div:last-child,
+.messages-container > div {
+  margin-bottom: 0 !important;
+}
+
+/* Debug - add visible borders to identify overflow areas */
+/* Uncomment for debugging
+.chat-panel {
+  border: 2px solid red;
+}
+.sidebar-panel {
+  border: 2px solid blue;
+}
+.messages-container {
+  border: 2px solid green;
+}
+.chat-header, .input-section {
+  border: 1px solid orange;
+}
+*/
