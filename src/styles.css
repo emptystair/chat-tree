@@ -187,21 +187,25 @@ a:hover {
 
 .message-input {
   flex: 1;
-  padding: 0.75rem 1rem;
+  background-color: white;
   border: 1px solid #d0d0d0;
   border-radius: 8px;
-  resize: none;
   font-family: inherit;
   font-size: 1rem;
-  line-height: 1.5;
-  background-color: #fff;
-  min-height: 46px;
-  max-height: 150px;
-  overflow-y: auto;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  margin: 0;
-  padding-bottom: 0.75rem;
-  box-sizing: border-box;
+  height: 36px !important;
+  min-height: 36px !important;
+  max-height: 36px !important;
+  resize: none !important;
+  overflow-y: hidden !important;
+  overflow-x: auto !important;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  
+  /* Critical for vertical centering */
+  line-height: 36px !important;
+  padding: 0 12px !important;
+  box-sizing: border-box !important;
+  display: block !important;
 }
 
 .message-input:focus {
@@ -222,10 +226,9 @@ a:hover {
   font-weight: 500;
   color: #333;
   cursor: pointer;
-  height: 46px;
+  height: 36px; /* Match to input height */
   transition: background-color 0.2s;
   margin: 0;
-  height: 46px;
   align-self: center;
 }
 
@@ -1674,4 +1677,74 @@ grammarly-extension,
   .message .content hr {
     background-color: #30363d;
   }
+}
+/* Add these styles to your styles.css file to fix the chat bubble height and alignment */
+
+/* Adjust content padding for message bubbles */
+.message .content {
+  padding: 0.5rem 0.75rem; /* Reduced padding from 0.75rem 1rem */
+  line-height: 1.4; /* Slightly tighter line height */
+  width: 100%; /* Ensure content takes full width of its container */
+}
+
+/* Target specific paragraph spacing inside messages */
+.message .content p {
+  margin-top: 0;
+  margin-bottom: 0.5rem; /* Reduced from 1rem */
+}
+
+/* Make last paragraph in a message have no bottom margin */
+.message .content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Make code blocks more compact to match */
+.code-block {
+  padding: 0.5rem 0.75rem; /* Reduced padding */
+  margin: 0.5rem 0; /* Reduced margin */
+}
+
+/* Ensure message bubbles don't have unnecessary vertical spacing */
+.message {
+  margin-bottom: 0.75rem; /* Reduced from 1rem */
+  margin-left: auto !important; /* Auto margin on left */
+  margin-right: auto !important; /* Auto margin on right */
+  max-width: 90%; /* Increase max width to allow bubbles to be wider */
+  width: 90%; /* Set a fixed width for all messages */
+  justify-content: flex-start; /* Align content to the left inside the message */
+}
+
+/* Override the user message alignment to match assistant */
+.message.user {
+  flex-direction: row !important; /* Reset the flex direction */
+}
+
+/* Fix for markdown paragraphs to eliminate extra spacing */
+.markdown-paragraph {
+  margin: 0;
+  padding: 0;
+}
+
+/* Target assistant messages specifically if needed */
+.message.assistant .content,
+.message.user .content {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+/* Fix user message content styling */
+.message.user .content {
+  border-top-right-radius: 8px; /* Reset border radius to match others */
+}
+
+/* Remove extra space in streaming messages */
+.message.is-streaming .content {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+/* Adjust the messages container padding */
+.messages-container {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
