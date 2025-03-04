@@ -8,7 +8,7 @@ import ApiKeyManager from './ApiKeyManager';
 import { useConversation } from '../hooks/useConversationState';
 import { sendMessage } from '../services/llmService';
 
-// ContentEditable Input Component
+// ContentEditable Input Component with Claude-like Placeholder
 const ContentEditableInput = ({ 
   value, 
   onChange, 
@@ -67,9 +67,13 @@ const ContentEditableInput = ({
             position: 'absolute',
             top: '8px',
             left: '12px',
-            color: '#999',
+            color: '#999', 
             pointerEvents: isEmpty ? 'auto' : 'none',
-            userSelect: 'none'
+            userSelect: 'none',
+            fontWeight: '400',
+            fontSize: '14px',
+            opacity: '1',
+            zIndex: '1' // Adding z-index to ensure it appears above other elements
           }}
         >
           {placeholder}
@@ -91,14 +95,16 @@ const ContentEditableInput = ({
           overflowY: 'auto',
           overflowX: 'hidden',
           padding: '8px 12px',
-          border: '1px solid #ccc',
-          borderRadius: '4px',
+          border: '1px solid #e5e7eb',
+          borderRadius: '6px',
           outline: 'none',
           lineHeight: '20px',
           whiteSpace: 'pre-wrap',
           wordBreak: 'break-word',
           cursor: disabled ? 'not-allowed' : 'text',
-          backgroundColor: disabled ? '#f5f5f5' : '#fff',
+          backgroundColor: disabled ? '#f9fafb' : '#fff',
+          fontSize: '14px',
+          position: 'relative', // Ensure proper stacking context
           // Improve rendering performance
           transform: 'translateZ(0)',
           willChange: 'contents'

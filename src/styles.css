@@ -1748,3 +1748,77 @@ grammarly-extension,
   padding-left: 0.75rem;
   padding-right: 0.75rem;
 }
+/* Custom Scrollbar Styling with Larger Size (Add this to the end of your styles.css file) */
+
+/* Webkit browsers (Chrome, Safari, newer Edge) */
+::-webkit-scrollbar {
+  width: 12px;  /* Increased from 8px to 12px */
+  height: 12px; /* Increased from 8px to 12px */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 6px; /* Slightly increased radius */
+  border: 2px solid transparent;
+  background-clip: content-box;
+  min-height: 40px; /* Minimum height for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+  background-clip: content-box;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: auto; /* Changed from thin to auto for larger size */
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+/* For the messages container specifically */
+.messages-container::-webkit-scrollbar {
+  width: 12px; /* Increased from 8px to 12px */
+}
+
+.messages-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 6px; /* Slightly increased radius */
+  border: 2px solid transparent;
+  background-clip: content-box;
+  min-height: 40px; /* Minimum height for the thumb */
+}
+
+.messages-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  * {
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  }
+  
+  .messages-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  .messages-container::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+}
